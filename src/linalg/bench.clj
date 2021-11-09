@@ -21,13 +21,16 @@
            y' (dv y)]
        (unc/dot x' y')))))
 
-
 ;; $n=5$
 (code (with-out-str (bench 5)))
 ;; $n=10$
 (code (with-out-str (bench 10)))
+
 ;; $n=20$
 (code (with-out-str (bench 20)))
+
+;; $n=25$
+(code (with-out-str (bench 25)))
 
 ;; $n=50$
 (code (with-out-str (bench 50)))
@@ -69,7 +72,7 @@
 (code (with-out-str (bench-scale 10000)))
 
 (defn bench-add
-  "Benchmark of scaling a vector"
+  "Benchmark of adding 3 vectors"
   [n]
   (let [x (runif n)
         y (runif n)
@@ -126,8 +129,12 @@
 ;; $n=20,000$
 (code (with-out-str (bench-add-no-io 20000)))
 
-
+(code
+ (with-out-str
+   (let [v (dv 1000) ]
+     (quick-bench (seq v))
+     (quick-bench (into [] v)))))
 
 (comment
-  (clerk/show! "bench.clj")
+  (clerk/show! "src/linalg/bench.clj")
   )

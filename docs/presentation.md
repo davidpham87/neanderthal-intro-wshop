@@ -92,17 +92,14 @@ $\mathbb{R}^n$.
 Other vector spaces: the space of function from $\mathbb{R}$ to
 $\mathbb{R}$.
 
+## Subspace and basis
+
 ## Linear Mappings
-
-
 
 Another example of mapping: the derivative of a function in the space of
 function that can be derived is a linear operation, as
 
 $T(\alpha f+ \beta g) = (\alpha f + \beta g)' = \alpha f' + \beta  g' = \alpha T(f) + \beta T(g)$.
-
-
-
 
 
 - What is Linear Algebra? Start with example of geometry [vector/planes], then
