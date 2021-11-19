@@ -90,7 +90,33 @@ your matrices to speed up, even more, the computations.
 
 # Linear Algebra Concepts
 
+## Vector Spaces Example:
+
+Take two vectors of numbers say `(def v [0 1 2 3])`, `(def w [0 1 2 3])` and
+`(def a 3)` . Then intuitively the addition and the scaling operation are
+defined as:
+
+``` clojure
+(map + v w) ;; [0 2 3 4 6]
+(map (partial * a)  v) ;; [0 3 6 9]
+```
+
+We can try to abstract this behavior, this would lead to the proper definition
+of a vector space in mathematics.
+
 ## Vector Spaces
+
+A vector space, a set of elements, is a set stable under a `+` operation and a
+`*` scalar operation, with the following property, for all $u, v, w \in V$:
+
+- Commutativity: $u+v = v+u$
+- Assioativity: $(u + v) + w = u (v + w)$ and $(ab)v = a(bv)$.
+- Additive identity: there exists $0 \in V$ such that $v+0 = v$.
+- Additive inverse: for all $v \in V$, there exist $w \in W$ such that $v+w =
+  0$.
+- Multiplicative identity ($1v=v$, for all $v \in V$),
+- Distributive properties: $(\alpha+\beta)(u+v) = \alpha u + \alpha u + \beta
+  v + \beta v$, for all $\alpha, \beta \in \mathcal{F}$, and $v, w \in V$.
 
 The most used vector space is probably the cartesian product of $\mathbb{R}$,
 that is $\mathbb{R} \times \mathbb{R} = \mathbb{R}^2$, and generally
@@ -127,8 +153,6 @@ In most applications, the inner product of two vectors is
 A list $e_1, \dots, e_n$ of vectors in $V$ is *orthonormal* if
 
 $\langle e_j, e_k \rangle = 1(j=k)$
-
-
 
 
 ## Linear Mappings
