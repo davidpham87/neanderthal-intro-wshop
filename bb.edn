@@ -8,8 +8,10 @@
   docker-run
   (shell (str
           "docker run -td --name neanderthal "
-          " -p 8889:8889"
+          " -p 53755:53755"
           " -p 8050:8050"
+          " -p 8889:8889"
+          " -p 7777:7777"
           " -v " (str/trim (:out (sh "pwd"))) ":/home/circleci/app"
           " -w /home/circleci/app neanderthal-image /bin/bash"))
 
@@ -17,7 +19,7 @@
   (shell "docker exec -it neanderthal /bin/bash")
 
   docker-repl
-  (shell "docker exec -it neanderthal /usr/local/bin/clojure -M:nrepl")
+  (shell "docker exec -it neanderthal /usr/local/bin/clojure -M:repl")
 
   docker-clean
   (do (shell "docker stop neanderthal")

@@ -3,14 +3,15 @@
  {uncomplicate/neanderthal {:mvn/version "0.43.1"}
   criterium/criterium {:mvn/version "0.4.6"}
   djblue/portal {:mvn/version "0.18.0"}
-  io.github.nextjournal/clerk {:mvn/version "0.2.214"}}
+  io.github.nextjournal/clerk {:mvn/version "0.2.214"}
+
+  nrepl/nrepl                   {:mvn/version "LATEST"}
+  cider/cider-nrepl             {:mvn/version "LATEST"}
+  refactor-nrepl/refactor-nrepl {:mvn/version "LATEST"}}
 
  :aliases
- {:nrepl
-  {:extra-deps {nrepl/nrepl                   {:mvn/version "LATEST"}
-                cider/cider-nrepl             {:mvn/version "LATEST"}
-                refactor-nrepl/refactor-nrepl {:mvn/version "LATEST"}}
-   :main-opts  ["-m" "nrepl.cmdline"
+ {:repl
+  {:main-opts  ["-m" "nrepl.cmdline"
                 "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"
                 "--bind"  "0.0.0.0"
                 "--port" "8889"]}}

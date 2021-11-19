@@ -10,5 +10,5 @@ If you do not installed intel-mkl on your pc, you would need Docker and bashaka 
 ``` shell
 bb docker-build
 bb docker-run
-bb docker-shell
+bb docker-repl # binds a repl to 8889, a portal to 53755 and clerk to 7777
 ```

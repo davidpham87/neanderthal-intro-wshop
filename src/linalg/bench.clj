@@ -137,4 +137,5 @@
 
 (comment
   (clerk/show! "src/linalg/bench.clj")
+  (tap> "hello")
   )
