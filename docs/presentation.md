@@ -10,9 +10,23 @@ title: Introduction to Linear Algebra
 
  - Introduce heuristically basic concepts of linear algebra to neophytes with
    Clojure knowledge.
+ - Numerical Linear Algebra is the field concerned with the numerical
+   application of linear algebra.
 
 Caveat: I will consciously ignore a few mathematical details, to emphasize on
 the intuition [this hurts me as a mathematician].
+
+We will cover:
+
+- Linear Vector Spaces in Finite Dimension
+- Linear Mappings
+- Matrix
+- Eigenvalues
+- Special matrices
+- Neanderthal API.
+
+Numerical linear algebra should be a topic by itself, and hence left out for
+this presentation.
 
 # What is linear algebra?
 
@@ -215,23 +229,26 @@ with its adjoint. If $T\in \mathcal{L}(V)$ is normal if $TT^* = T^*T$.
   represent every linear map as a matrice and inversely.
 - The space of matrices are vector spaces.
 
-
-
-
 ## Least Square
 
 Small trick: Neanderthal API and Machine Learning/Statistic notations do not
 coincide. In the latter, the design matrix and regression parameters are
 denoted with $X$ and $\beta$. In contrast Neanderthal uses $A$ and $x$.
 
-# Main takeaway
+# Main Takeaways
 
 - Linear algebra is the study of linear relationships (addition and scaling).
 - The space of linear maps and the space matrices are bijective.
+
 - Adding and substracting matrices and vector are $O(n)$ operations.
 - Multiplying a vector with a matrix is a $O(n^2)$.
 - Multiplying matrices (composing linear maps) is $O(n^3)$.
-- There are shortcuts if you can impose restriction on the matrices.
+
+- There are special matrices which could accelerate your computation.
+- To get the best performance of Neandterhal, you should keep the data
+  structure in Neandterhal's vectors/matrices. Avoid converting data between
+  clojure and Neandterhal memory layout.
+
 
 # Plan
 

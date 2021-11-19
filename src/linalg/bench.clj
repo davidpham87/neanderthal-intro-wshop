@@ -132,8 +132,8 @@
 (code
  (with-out-str
    (let [v (dv 1000) ]
-     (quick-bench (seq v))
-     (quick-bench (into [] v)))))
+     (quick-bench (last (seq v)))
+     (quick-bench (peek (into [] v))))))
 
 (comment
   (clerk/show! "src/linalg/bench.clj")
