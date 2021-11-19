@@ -2,8 +2,6 @@
 title: Introduction to Linear Algebra
 ...
 
-# Introduction to Linear Algebra
-
 # Strategy
 
  Going from example first, then abstract.
@@ -92,12 +90,19 @@ your matrices to speed up, even more, the computations.
 
 ## Vector Spaces Example:
 
-Take two vectors of numbers say `(def v [0 1 2 3])`, `(def w [0 1 2 3])` and
-`(def a 3)` . Then intuitively the addition and the scaling operation are
+Take two vectors of numbers and a scalar say
+
+```clojure
+(def v [0 1 2 3])
+(def w [3 2 -1 0])
+(def a 3)
+ ```
+
+Then intuitively the addition and the scaling operation are
 defined as:
 
 ``` clojure
-(map + v w) ;; [0 2 3 4 6]
+(map + v w) ;; [3 3 1 3]
 (map (partial * a)  v) ;; [0 3 6 9]
 ```
 
@@ -138,7 +143,8 @@ following properties:
 
   $\langle \lambda u + v, w \rangle = \lambda \langle u, w \rangle + \langle v, w \rangle$
 
-- Conjugate symmetry: $\langle u, v \rangle = \bar \langle v, u \rangle$
+- Conjugate symmetry: $\langle u, v \rangle$ is the conjugate of $\langle v, u
+  \rangle$ (when $\mathbb{F} = \mathbb{R}, they are equal).
 
 In most applications, the inner product of two vectors is
 
@@ -148,12 +154,44 @@ In most applications, the inner product of two vectors is
 
 ### Subspace and basis
 
+Let's take the space $V=\mathbb{R}^3 as an example.
+
+# TODO Make a an empty plot
+
+We can define regions (in this they will be lines or plane surface) in the
+space that are strictly smaller than $V$ but would still remain subvector
+space. Example are
+
+$$\{ \lambda (1, 0): \lambda \in \mathbb{R}\}$$
+
+$$\{ \lambda (1, 0) + \mu (0, 1): \lambda, \mu \in \mathbb{R}\}$$
+
+Formally, a subvector space is a subset of $V$ (possibly equal to $V$) which is
+also a vector space. Common example of subvector space are projections.
+
+## Linear Independency, Basis and Dimension
+
+We say a list $v_1, \dots, v_n$ is *linearly independent* if $\sum_i \alpha_i
+v_i = 0$, implies all $\alpha_i$ are equal to 0. Basically, it means all the
+vectors contains some information.
+
+We say a vector space $V$ is in the span $v_1, \dots, v_n$ if any element in
+$V$ can be represented as a linear representation of $v_1, \dots, v_n$. That is
+for all $v \in V$
+
+$v = \sum_i \alpha_i v_i$
+
+for some $\alpha = (\alpha_1, \dots, \alpha_n$. We say the list is basis of $V$
+if it is linearly independent.
+
+Finally, the dimension of $V$ is defined as the number of element in any basis
+of $V$.
+
 ### Orthonormal basis
 
 A list $e_1, \dots, e_n$ of vectors in $V$ is *orthonormal* if
 
-$\langle e_j, e_k \rangle = 1(j=k)$
-
+$\langle e_j, e_k \rangle = \mathbb{1}(j=k)$ for all $j,k=1, \dots, n$.
 
 ## Linear Mappings
 
@@ -170,12 +208,30 @@ An operator is *self-adjoint* if $T=T*$.
 Normal operator on a inner producte space is called *normal* if it commutes
 with its adjoint. If $T\in \mathcal{L}(V)$ is normal if $TT^* = T^*T$.
 
+# Matrices
+
+- But why is all of this useful for understanding matrices?!
+- The space of linear maps and the space matrices are bijective, that is we can
+  represent every linear map as a matrice and inversely.
+- The space of matrices are vector spaces.
+
+
+
+
 ## Least Square
 
 Small trick: Neanderthal API and Machine Learning/Statistic notations do not
 coincide. In the latter, the design matrix and regression parameters are
 denoted with $X$ and $\beta$. In contrast Neanderthal uses $A$ and $x$.
 
+# Main takeaway
+
+- Linear algebra is the study of linear relationships (addition and scaling).
+- The space of linear maps and the space matrices are bijective.
+- Adding and substracting matrices and vector are $O(n)$ operations.
+- Multiplying a vector with a matrix is a $O(n^2)$.
+- Multiplying matrices (composing linear maps) is $O(n^3)$.
+- There are shortcuts if you can impose restriction on the matrices.
 
 # Plan
 
