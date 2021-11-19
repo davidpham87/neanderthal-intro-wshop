@@ -1,0 +1,24 @@
+{:tasks
+ {:requires ([babashka.process :refer (sh)]
+             [clojure.string :as str])
+
+  docker-build
+  (shell "docker build -t neanderthal-image .")
+
+  docker-run
+  (shell (str
+          "docker run -td --name neanderthal "
+          " -p 8889:8889"
+          " -p 8050:8050"
+          " -v " (str/trim (:out (sh "pwd"))) ":/home/circleci/app"
+          " -w /home/circleci/app neanderthal-image /bin/bash"))
+
+  docker-shell
+  (shell "docker exec -it neanderthal /bin/bash")
+
+  docker-repl
+  (shell "docker exec -it neanderthal /usr/local/bin/clojure -M:nrepl")
+
+  docker-clean
+  (do (shell "docker stop neanderthal")
+      (shell "docker rm neanderthal"))}}
