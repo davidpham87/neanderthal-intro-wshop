@@ -215,7 +215,7 @@ function that can be derived is a linear operation, as
 $T(\alpha f+ \beta g) = (\alpha f + \beta g)' = \alpha f' + \beta  g' = \alpha T(f) + \beta T(g)$.
 
 Let $T\in \mathcal{L}(V)$, with $V$ inner product space. Then $T^*$ is an
-*adjoint* if $< Tv, w> = <v, T^*w>$.
+*adjoint* if $\langle Tv, w \rangle =\langle v, T^*w \rangle$.
 
 An operator is *self-adjoint* if $T=T*$.
 
@@ -248,7 +248,6 @@ denoted with $X$ and $\beta$. In contrast Neanderthal uses $A$ and $x$.
 - To get the best performance of Neandterhal, you should keep the data
   structure in Neandterhal's vectors/matrices. Avoid converting data between
   clojure and Neandterhal memory layout.
-
 
 # Plan
 
