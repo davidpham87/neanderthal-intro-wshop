@@ -75,3 +75,5 @@
 ;; Example of complex linear mapping: the derivative of a function is a linear
 ;; operation, as
 ;;$T(\alpha f+ \beta g) = (\alpha f + \beta g)' = \alpha f' + \beta  g' = \alpha T(f) + \beta T(g)$.
+
+;; # Intuition About Linear Algebra

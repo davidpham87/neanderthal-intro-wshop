@@ -1,5 +1,8 @@
 ---
 title: Introduction to Linear Algebra
+header-includes:
+    <link rel="stylesheet" href="https://latex.now.sh/style.css">
+
 ...
 
 # Strategy
@@ -33,8 +36,40 @@ this presentation.
 Crudely speaking and for a software engineer, linear algebra is the science and
 art of adding and multiplying numbers fast without a user-defined loop.
 
-Mathematically, linear algebra studies vector spaces and linear transformation
+We want to compute the following operations as fast as possible:
+
+```clojure
+(def v [0 1 2 3])
+(def w [3 2 -1 0])
+(def a 3)
+
+(mapv + v w) ;; [3 3 1 3]
+(mapv (partial * a)  v) ;; [0 3 6 9]
+
+(def X [[1 1 1 1]
+        [2 2 2 2]])
+
+(mapv #(reduce + (map * % v)) X) ;; [6 12]
+
+(mapv #(mapv (fn [x] (reduce + (map * % x))) [v w]) X)
+;; [[6 4]
+;;  [12 8]]
+
+```
+
+$$
+\begin{pmatrix}
+1 & 2 & 3\\
+a & b & c
+\end{pmatrix}
+$$
+
+
+Mathematically speaking, linear algebra studies vector spaces and linear transformation
 between spaces.
+
+
+
 
 # Why caring about linear algebra?
 
@@ -113,7 +148,7 @@ Take two vectors of numbers and a scalar say
  ```
 
 Then intuitively the addition and the scaling operation are
-defined as:
+defined as element-wise operations:
 
 ``` clojure
 (map + v w) ;; [3 3 1 3]
@@ -129,7 +164,7 @@ A vector space, a set of elements, is a set stable under a `+` operation and a
 `*` scalar operation, with the following property, for all $u, v, w \in V$:
 
 - Commutativity: $u+v = v+u$
-- Assioativity: $(u + v) + w = u (v + w)$ and $(ab)v = a(bv)$.
+- Associativity: $(u + v) + w = u (v + w)$ and $(ab)v = a(bv)$.
 - Additive identity: there exists $0 \in V$ such that $v+0 = v$.
 - Additive inverse: for all $v \in V$, there exist $w \in W$ such that $v+w =
   0$.
