@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Introduction to Linear Algebra</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="https://latex.now.sh/style.css">
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Introduction to Linear Algebra</h1>
+</header>
+<h1 id="goals">Goals</h1>
+<ul>
+<li>Introduce heuristically basic concepts of linear algebra to neophytes with Clojure knowledge.</li>
+<li>Numerical Linear Algebra is the field concerned with the numerical application of linear algebra.</li>
+</ul>
+<p>Caveat: I will consciously ignore a few mathematical details, to emphasize on the intuition [this hurts me as a mathematician].</p>
+<p>We will cover:</p>
+<ul>
+<li>Linear Vector Spaces in Finite Dimension</li>
+<li>Linear Mappings</li>
+<li>Matrix</li>
+<li>Eigenvalues</li>
+<li>Special matrices</li>
+<li>Neanderthal API.</li>
+</ul>
+<p>Numerical linear algebra should be a topic by itself, and hence left out for this presentation.</p>
+<h1 id="what-is-linear-algebra">What is Linear Algebra?</h1>
+<p>Intuitively, we want to:</p>
+<ul>
+<li>extend our understanding geometry in 2D and 3D to higher dimensions</li>
+<li>generalize notions such as distance and isomorphism</li>
+<li>explore if there exist special structures or transformation</li>
+</ul>
+<p>Crudely speaking and for a software engineer, linear algebra is the science and art of adding and multiplying numbers fast without a user-defined loop.</p>
+<p>For mathematicians, these are the questions of interest (extend to an arbitrary finite integer number <span class="math inline">n</span>):</p>
+<ul>
+<li>Addition:</li>
+</ul>
+<p><span class="math display"> \vec v + \vec w = \begin{bmatrix}
+      v_{1} &amp; v_{2} &amp; v_{3} \\
+\end{bmatrix}
++
+\begin{bmatrix}
+      w_{1} &amp; w_{2} &amp; w_{3}\\
+\end{bmatrix}
+    =
+\begin{bmatrix}
+      v_{1} + w_{1} &amp; v_{2} + w_{2} &amp; v_{3} + w_{3}
+\end{bmatrix} </span></p>
+<p>This has <span class="math inline">O(n)</span> computational complexity.</p>
+<ul>
+<li>Scaling:</li>
+</ul>
+<p><span class="math display"> \alpha \vec v = \alpha
+\begin{bmatrix}
+      v_{1} &amp; v_{2} &amp; v_{3}
+\end{bmatrix}
+=
+\begin{bmatrix}
+      \alpha v_{1} &amp; \alpha v_{2} &amp; \alpha v_{3}
+\end{bmatrix} </span></p>
+<p>Also has <span class="math inline">O(n)</span> computational complexity.</p>
+<ul>
+<li>Matrix multiplication:</li>
+</ul>
+<p><span class="math display"> AB = \begin{bmatrix}
+      a_{11} &amp; a_{12} &amp; a_{13} \\
+      a_{21} &amp; a_{22} &amp; a_{23} \\
+      a_{31} &amp; a_{32} &amp; a_{33} \\
+      a_{41} &amp; a_{42} &amp; a_{43}
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+      b_{11} &amp; b_{21} \\
+      b_{21} &amp; b_{22} \\
+      b_{31} &amp; b_{32}
+\end{bmatrix}
+    =
+\begin{bmatrix}
+      r_{11} &amp; r_{12} \\
+      r_{21} &amp; r_{22} \\
+      r_{31} &amp; r_{32} \\
+      r_{41} &amp; r_{42}
+\end{bmatrix} = R</span></p>
+<p><span class="math display"> r_{ij} = \sum_{k} a_{ik}b_{kj} </span></p>
+<p>Computational complexity of <span class="math inline">O(nmp)</span> speed, <span class="math inline">n</span> count of rows for the first matrix, <span class="math inline">m</span> count of the rows for the second matrix, <span class="math inline">p</span> number of columns of the second matrix.</p>
+<p>Special cases are when the second matrix a single column, in this case we have <span class="math inline">O(n^2)</span> complexity algorithm, and when both matrices have the number of rows and columns <span class="math inline">O(n^3)</span>.</p>
+<p>In code, we want to compute the following operations as fast as possible:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> v </span>[<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> w </span>[<span class="dv">3</span> <span class="dv">2</span> -<span class="dv">1</span> <span class="dv">0</span>])</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> a </span><span class="dv">3</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">mapv</span> <span class="kw">+</span> v w) <span class="co">;; [3 3 1 3]</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">mapv</span> (<span class="kw">partial</span> <span class="kw">*</span> a)  v) <span class="co">;; [0 3 6 9]</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> X </span>[[<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        [<span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">2</span>]])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>(<span class="kw">mapv</span> #(<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">map</span> <span class="kw">*</span> <span class="va">%</span> v)) X) <span class="co">;; [6 12]</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>(<span class="kw">mapv</span> #(<span class="kw">mapv</span> (<span class="kw">fn</span> [x] (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">map</span> <span class="kw">*</span> <span class="va">%</span> x))) [v w]) X)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">;; [[6 4]</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">;;  [12 8]]</span></span></code></pre></div>
+<p>Mathematically speaking, linear algebra studies vector spaces and linear transformation between vector spaces (sets of things with some structures).</p>
+<p>The question that we can ask ourselves:</p>
+<ul>
+<li>How can we interpret the vector and the matrices? (vector space, and linear transformation).</li>
+<li>In a matrix, are all the rows/columns containing additional information? (rank).</li>
+<li>Are there more efficient representation of the matrices?</li>
+</ul>
+<h1 id="why-caring-about-linear-algebra">Why caring about linear algebra?</h1>
+<p>These are examples of area where linear algebra is applied:</p>
+<ul>
+<li><p>Statistics: linear algebra provides a vocabulary and tools to solve problem in high dimensions.</p></li>
+<li><p>Machine Learning: linear algebra is abused for computer vision, natural language processing, speech recognition, and gaming agent.</p></li>
+<li><p>Simulations of [stochastic] systems (Markov chains): when studying systems where variable can influence each other, linear algebra might help to find the equilibrium state.</p></li>
+<li><p>Study of graphs/networks: graphs and networks can be represented as a matrix where each row represent the outward connection from a vertex to another vertex.</p></li>
+<li><p>Other ares: solving linear equations, solving partial differential equations, optimization and budgeting, computer graphics.</p></li>
+</ul>
+<h1 id="why-learning-a-specialized-linear-algebra-library">Why learning a specialized Linear Algebra Library?</h1>
+<p>It is true that one could heuristically define most linear algebra operations as such</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> plus </span>#(<span class="kw">apply</span> <span class="kw">mapv</span> <span class="kw">+</span> <span class="va">%</span>&amp;))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> times </span>[alpha x] (<span class="kw">mapv</span> (<span class="kw">partial</span> <span class="kw">*</span> alpha) x))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> dot </span>[x y] (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">mapv</span> <span class="kw">*</span> x y)))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">;; Suppose matrix are row majors</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> transpose </span>[Y] (<span class="kw">apply</span> <span class="kw">mapv</span> <span class="kw">vector</span> Y))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> </span><span class="va">%</span><span class="kw">*</span><span class="va">%</span> [X Y]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">mapv</span> (<span class="kw">fn</span> [x] (<span class="kw">mapv</span> #(dot x <span class="va">%</span>) (transpose Y))) X))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>(plus [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">0</span> <span class="dv">1</span>])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>(times <span class="dv">3</span> [<span class="dv">1</span> <span class="dv">2</span>])</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>(dot [<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">0</span> <span class="dv">1</span>])</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>(<span class="va">%</span><span class="kw">*</span><span class="va">%</span> [[<span class="dv">1</span> <span class="dv">0</span>] [<span class="dv">0</span> <span class="dv">1</span>]]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>     [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>(<span class="va">%</span><span class="kw">*</span><span class="va">%</span> [[<span class="dv">0</span> <span class="dv">1</span>] [<span class="dv">1</span> <span class="dv">0</span>]]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>     [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]])</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>(<span class="va">%</span><span class="kw">*</span><span class="va">%</span> [[-<span class="dv">1</span> <span class="dv">0</span>] [<span class="dv">0</span> <span class="dv">1</span>]]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>     [[<span class="dv">1</span> <span class="dv">2</span>] [<span class="dv">3</span> <span class="dv">4</span>]])</span></code></pre></div>
+<h2 id="speed-and-algorithms">Speed and Algorithms</h2>
+<p>The reason linear algebra is a necessity in practice for these fields is thanks to the concept and the hardware implementation of <em>single instruction multiple data</em> (<code>SIMD</code>), in other words the art of applying the same operation to multiple data points. CPU and GPU have specialized instructions to perform linear algebra operations which speeds up operations by a magnitude of orders (depending on the size of the problem).</p>
+<p>The gain speed allowed to create algorithms (such as the bootstrap in statistics).</p>
+<p>Depending on the structure of your problem, you could leverage the shape of your matrices to speed up, even more, the computations.</p>
+<h1 id="linear-algebra-concepts">Linear Algebra Concepts</h1>
+<h2 id="vector-spaces-example">Vector Spaces Example:</h2>
+<p>Take two vectors of numbers and a scalar say</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> v </span>[<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> w </span>[<span class="dv">3</span> <span class="dv">2</span> -<span class="dv">1</span> <span class="dv">0</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>(<span class="bu">def</span><span class="fu"> a </span><span class="dv">3</span>)</span></code></pre></div>
+<p>Then intuitively the addition and the scaling operation are defined as element-wise operations:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">map</span> <span class="kw">+</span> v w) <span class="co">;; [3 3 1 3]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">map</span> (<span class="kw">partial</span> <span class="kw">*</span> a)  v) <span class="co">;; [0 3 6 9]</span></span></code></pre></div>
+<p>We can try to abstract this behavior, this would lead to the proper definition of a vector space in mathematics.</p>
+<h2 id="vector-spaces-definition">Vector Spaces: Definition</h2>
+<p>A vector space, a set of elements, is a set stable under a <code>+</code> operation and a <code>*</code> scalar operation, with the following property, for all <span class="math inline">u, v, w \in V</span>:</p>
+<ul>
+<li>Commutativity: <span class="math inline">u+v = v+u</span></li>
+<li>Associativity: <span class="math inline">(u + v) + w = u (v + w)</span> and <span class="math inline">(ab)v = a(bv)</span>.</li>
+<li>Additive identity: there exists <span class="math inline">0 \in V</span> such that <span class="math inline">v+0 = v</span>.</li>
+<li>Additive inverse: for all <span class="math inline">v \in V</span>, there exist <span class="math inline">w \in W</span> such that <span class="math inline">v+w = 0</span>.</li>
+<li>Multiplicative identity (<span class="math inline">1v=v</span>, for all <span class="math inline">v \in V</span>),</li>
+<li>Distributive properties: <span class="math inline">(\alpha+\beta)(u+v) = \alpha u + \alpha u + \beta v + \beta v</span>, for all <span class="math inline">\alpha, \beta \in \mathcal{F}</span>, and <span class="math inline">v, w \in V</span>.</li>
+</ul>
+<p>The most used vector space is probably the cartesian product of <span class="math inline">\mathbb{R}</span>, that is <span class="math inline">\mathbb{R} \times \mathbb{R} = \mathbb{R}^2</span>, and generally <span class="math inline">\mathbb{R}^n</span>.</p>
+<p>Other vector spaces: the space of function from <span class="math inline">\mathbb{R}</span> to <span class="math inline">\mathbb{R}</span>.</p>
+<h3 id="distance-and-angle-inner-product-space-norm">Distance and Angle: Inner Product Space &amp; Norm</h3>
+<p>An inner product on <span class="math inline">V</span> is a function taking each ordered pair <span class="math inline">(u, v)</span> of elements in <span class="math inline">V</span> to a number <span class="math inline">\langle u, v \rangle</span> <span class="math inline">\mathbb{F}</span> with the following properties:</p>
+<ul>
+<li><p>Positivity <span class="math inline">\langle v, v \rangle \geq 0</span> for all <span class="math inline">v \in V</span>.</p></li>
+<li><p>Definiteness <span class="math inline">\langle v, v \rangle = 0</span> if and only if <span class="math inline">v = 0</span>;</p></li>
+<li><p>Additivity and homogeneity in the first slot: for all <span class="math inline">u, v, w \in V</span> and <span class="math inline">\lambda \in \mathbb{F}</span></p>
+<p><span class="math inline">\langle \lambda u + v, w \rangle = \lambda \langle u, w \rangle + \langle v, w \rangle</span></p></li>
+<li><p>Conjugate symmetry: <span class="math inline">\langle u, v \rangle</span> is the conjugate of <span class="math inline">\langle v, u \rangle</span> (when $ = , they are equal).</p></li>
+</ul>
+<p>In most applications, the inner product of two vectors is the euclidean dot product <span class="math inline">\langle v, w \rangle = \sum_i v_i w_i</span>, which translate to</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode clojure"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(<span class="bu">defn</span><span class="fu"> dot </span>[v w] (<span class="kw">reduce</span> <span class="kw">+</span> (<span class="kw">map</span> <span class="kw">*</span> v w)))</span></code></pre></div>
+<p>Usually, the notation <span class="math inline">v^\top w</span> is used for the euclidean product instead of <span class="math inline">\langle v, w \rangle</span>.</p>
+<p>Thanks to the inner product, we can generalize the notion of <em>length</em> <span class="math inline">\| v \|</span> (we call it a <em>norm</em>) for a vector <span class="math inline">v</span> as</p>
+<p><span class="math display">\| v \| = \sqrt{\langle v, v \rangle}.</span></p>
+<p>This norm then define the <em>distance</em> between two vectors <span class="math inline">v</span> and <span class="math inline">w</span> as the norm of their difference:</p>
+<p><span class="math display">\| v - w \| = \sqrt{\langle v-w, v-w \rangle}.</span></p>
+<h3 id="subspaces">Subspaces</h3>
+<p>Let’s take the space <span class="math inline">V=\mathbb{R}^3</span> as an example.</p>
+<p>We can define regions (in this they will be lines or plane surface) in the space that are strictly smaller than <span class="math inline">V</span> but would still remain subvector space. Example are</p>
+<p><span class="math display">\{ \lambda (1, 0): \lambda \in \mathbb{R}\}</span></p>
+<p><span class="math display">\{ \lambda (1, 0) + \mu (0, 1): \lambda, \mu \in \mathbb{R}\}</span></p>
+<p>Formally, a subvector space is a subset of <span class="math inline">V</span> (possibly equal to <span class="math inline">V</span>) which is also a vector space. Common example of subvector space are projections.</p>
+<h2 id="linear-independency-basis-and-dimension">Linear Independency, Basis and Dimension</h2>
+<p>We say a list <span class="math inline">v_1, \dots, v_n</span> is <em>linearly independent</em> if <span class="math inline">\sum_{i=1}^n \alpha_i v_i = 0</span>, implies all <span class="math inline">\alpha_i</span> are equal to 0. Basically, it means all the vectors contains some information.</p>
+<p>We say a vector space <span class="math inline">V</span> is in the span <span class="math inline">v_1, \dots, v_n</span> if any element in <span class="math inline">V</span> can be represented as a linear representation of <span class="math inline">v_1, \dots, v_n</span>. That is for all <span class="math inline">v \in V</span>, there exist a list of <span class="math inline">\alpha_1, \dots, \alpha_n</span> such that</p>
+<p><span class="math display">v = \sum_{i=1}^n \alpha_i v_i</span></p>
+<p>We say the list is basis of <span class="math inline">V</span> if it is linearly independent.</p>
+<p>Finally, the dimension of <span class="math inline">V</span> is defined as the number of element in any basis of <span class="math inline">V</span>.</p>
+<h3 id="orthonormal-basis">Orthonormal basis</h3>
+<p>A list <span class="math inline">(e_1, \dots, e_n)</span> of vectors in <span class="math inline">V</span> is <em>orthonormal</em> if</p>
+<p><span class="math display"> \langle e_j, e_k \rangle = \mathbb{1}(j=k) \textrm{ for all } j,k=1, \dots, n. </span></p>
+<p>Intuitively, the vector <span class="math inline">e_j</span> are <em>perpendicular</em> to each other, and have a <em>norm</em> or <em>length</em> of 1. There might exist an infinite amount of orthonormal basis for a given space, but their count is always the same.</p>
+<p>The most widely used orthonormal basis is the canonical basis <span class="math inline">e_1, \dots, e_n</span>, where each vector <span class="math inline">e_j</span> contains only 0, except at position <span class="math inline">j</span>, where the number is <span class="math inline">1</span>. For example in <span class="math inline">\mathbb{R}^3</span>,</p>
+<p><span class="math display"> e_1  = \begin{bmatrix} 1 &amp; 0 &amp; 0 \end{bmatrix}, \quad e_2 = \begin{bmatrix} 0 &amp; 1 &amp; 0\end{bmatrix}, \quad e_3 = \begin{bmatrix} 0 &amp; 0 &amp; 1\end{bmatrix} </span></p>
+<h1 id="linear-mappings-and-matrices">Linear Mappings and Matrices</h1>
+<p>A <em>linear map</em> from a space <span class="math inline">V</span> to another vector space <span class="math inline">W</span> is a function <span class="math inline">T: V \to W,</span> such that for all <span class="math inline">u, v \in V, \lambda \in \mathcal{F}</span> one has</p>
+<p><span class="math display"> T(\lambda v + w) = \lambda T(v) + T(w). </span></p>
+<p>One such example in <span class="math inline">\mathbb{R}^2</span>: the mapping the switch the sign of the second component:</p>
+<p><span class="math display"> T(\begin{bmatrix} v_1 &amp; v_2 \end{bmatrix}) = \begin{bmatrix} v_1 &amp; -v_2 \end{bmatrix} </span></p>
+<p>Another example of mapping: the derivative of a function in the space of function that can be derived is a linear operation, as</p>
+<p><span class="math display">T(\alpha f+ \beta g) = (\alpha f + \beta g)&#39; = \alpha f&#39; + \beta g&#39; = \alpha
+T(f) + \beta T(g).</span></p>
+<p>The space of linear map from <span class="math inline">V \to W</span> is also a vector space! That is, if <span class="math inline">S</span> and <span class="math inline">T</span> are linear map from <span class="math inline">V \to W</span>, <span class="math inline">\lambda \in \mathbb{F}</span> then <span class="math inline">\lambda S+T</span> defined as</p>
+<p><span class="math display"> (\lambda S+T)(u) = \lambda S(u) + T(u) </span></p>
+<p>is also a linear map from <span class="math inline">V \to W</span>.</p>
+<h2 id="composition-of-linear-maps">Composition of linear maps</h2>
+<p>We can chain linear map, if the space are coinciding: if <span class="math inline">T: U \to V</span>, <span class="math inline">S: V \to W</span>, then the product <span class="math inline">ST: U \to W</span> defined as <span class="math inline">(ST)(u) = S(T(u))</span> is a linear map from <span class="math inline">U \to W</span>.</p>
+<h2 id="matrices">Matrices</h2>
+<p>But why is all of this useful for understanding matrices?!</p>
+<ul>
+<li>The space of linear maps and the space matrices are bijective, that is we can represent every linear map as a matrice and inversely.</li>
+<li>The space of matrices are vector spaces.</li>
+</ul>
+<p>A <span class="math inline">m \times n</span> matrix with <span class="math inline">m</span> rows and <span class="math inline">n</span> columns is a rectangular array of number:</p>
+<p><span class="math display"> A = \begin{bmatrix} a_{11} &amp; \cdots &amp; a_{1n} \\  \vdots &amp; &amp; \vdots \\ a_{m1} &amp; \cdots &amp; a_{mn}\end{bmatrix}</span></p>
+<h2 id="matrice-of-a-linear-map">Matrice of a linear map</h2>
+<p>Let <span class="math inline">T: V \to W</span>, <span class="math inline">(v_1, \dots, v_n)</span>, resp. <span class="math inline">(w_1, \dots, w_m)</span>, be a basis for <span class="math inline">V</span>, resp. <span class="math inline">W</span>. Then, we can compute for every <span class="math inline">v_j</span></p>
+<p><span class="math display"> T(v_j) = a_{1j} w_1 + \dots + a_{mj} w_m </span></p>
+<p>The <span class="math inline">m \times n</span> matrix <span class="math inline">\mathcal{M}(T)</span> of a linear transformation <span class="math inline">T</span> is then defined as</p>
+<p><span class="math display"> \mathcal{M}(T) = \begin{bmatrix} a_{11} &amp; \cdots &amp; a_{1n} \\ \vdots &amp; &amp;
+\vdots \\ a_{m1} &amp; \cdots &amp; a_{mn}\end{bmatrix} </span></p>
+<p>Noteworthy:</p>
+<ul>
+<li><p>It is easier to interpret the matrix columnwise: the coefficient from a column <span class="math inline">j</span> are the coefficient of the linear combination to express <span class="math inline">w=T(v_j)</span> in the basis of <span class="math inline">w_1, \dots, w_m</span>.</p></li>
+<li><p>The relation is bijective: for every matrix <span class="math inline">A</span>, there exist a linear mapping <span class="math inline">T_A</span> from <span class="math inline">\mathbb{R}^n</span> to <span class="math inline">\mathbb{R}^m</span>, such that <span class="math inline">T_A(v_j) = \sum_i \alpha_{ij} w_i</span>.</p></li>
+<li><p>With this connection, the space of matrices is also a vector space! The addition of matrices is defined as element-wise addition. That is for two matrices <span class="math inline">A,B</span> and a coefficient <span class="math inline">\lambda</span></p>
+<p><span class="math display"> (\lambda A + B)_{ij} = \lambda a_{ij} + b_{ij},</span></p>
+<p>since we could associate <span class="math inline">\lambda A + B</span> to the mapping <span class="math inline">T_{\lambda A + B}.</span></p></li>
+</ul>
+<h2 id="matrix-of-a-composition-and-the-product-of-matrices">Matrix of a composition and the Product of Matrices</h2>
+<p>Remember we defined the composition <span class="math inline">(S_AT_B): U \to W</span> of <span class="math inline">S_A: U \to V</span> and <span class="math inline">T_B: V \to W</span> as <span class="math inline">(S_AT_B)(u) = S_A(T_B(u))</span>. Let <span class="math inline">(u_1,  \dots, u_n)</span>, <span class="math inline">(v_1 \dots, v_p)</span>, <span class="math inline">(w_1, \dots, w_m)</span> be basis of <span class="math inline">U</span>, <span class="math inline">V</span>, resp. <span class="math inline">W</span>, and <span class="math inline">A=\mathcal{M}(S_A)</span>, <span class="math inline">B=\mathcal{M}(T_B)</span>. Then for every <span class="math inline">u_j</span></p>
+<p><span class="math display">
+  \begin{aligned} S(T(u_j)) &amp; = S\left(\sum_{l=1}^p b_{lj} v_l\right) \\
+   &amp; = \sum_{l=1}^p b_{lj} S(v_l) \\
+   &amp; = \sum_{l=1}^p b_{lj} \sum_{i=1}^m a_{il} w_i\\
+   &amp; = \sum_{i=1}^m \left(\sum_{l=1}^p  a_{il} b_{lj}\right) w_i \\
+   &amp; = \left(\sum_{l=1}^p  a_{1l} b_{lj}\right) w_1 + \dots + \left(\sum_{l=1}^p  a_{ml} b_{lj}\right) w_m
+  \end{aligned}
+  </span></p>
+<p>As such, the element <span class="math inline">(i,j)</span> of the matrix of the <span class="math inline">S_AT_B</span> is given by</p>
+<p><span class="math display"> (ST)_{ij} =  \sum_{l=1}^p a_{il} b_{lj}.</span></p>
+<p>Since we have a one-to-one relation ship with the space of matrices, we could hence define a new operation: the matrix multiplication. Hence for a matrix <span class="math inline">A</span> and <span class="math inline">B</span>, such that the count of columns of <span class="math inline">A</span> matches the count of rows in <span class="math inline">B</span> we define the matrix multiplication as <span class="math inline">C = AB</span> such that</p>
+<p><span class="math display"> c_{ij} = \sum_{l=1}^p a_{il} b_{lj}.</span></p>
+<p>Note that the dimension of must match, and that the operation is not commutative in general (<span class="math inline">AB \neq BA</span>).</p>
+<h2 id="example">Example</h2>
+<p>Rotation in the plan is also a linear map (a fact that is quite used in computer vision). Its corresponding matrix in canonical basis is given by</p>
+<p><span class="math display"> \begin{bmatrix}
+\cos(\theta) &amp; -\sin(\theta)\\
+\sin(\theta) &amp; \cos(\theta)\\
+\end{bmatrix}
+</span></p>
+<p>where <span class="math inline">\theta</span> describe the rotation of the points. Interestingly, shifting points in <span class="math inline">\mathbb{R}^2</span> can’t be describe with in <span class="math inline">\mathbb{R}^2</span> but could in <span class="math inline">\mathbb{R}^3</span> with the following matrices:</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2D_affine_transformation_matrix.svg/1920px-2D_affine_transformation_matrix.svg.png" alt="Affine Transformation as a Linear Map" /><figcaption aria-hidden="true">Affine Transformation as a Linear Map</figcaption>
+</figure>
+<h2 id="special-matrices-structures">Special matrices structures</h2>
+<ul>
+<li>Diagonal matrices: all the elements of the matrices are 0, except those on the diagonal. Example:</li>
+</ul>
+<p><span class="math display"> \begin{pmatrix}
+    3 &amp; 0 \\
+    0 &amp; 2
+    \end{pmatrix}</span></p>
+<ul>
+<li>Block/Band diagonal matrices:</li>
+</ul>
+<p><span class="math display"> \begin{pmatrix}
+    A &amp; &amp; *\\
+    &amp;B\\
+    * &amp;&amp;C\\ \end{pmatrix}</span></p>
+<p>where <span class="math inline">A,B,C</span> are square matrices. <span class="math inline">*</span> inside matrices is the notation for saying the elements are equal to 0.</p>
+<ul>
+<li>Upper and Lower Triangular Matrices: all elements below or above the diagonal are equal to 0. Example:</li>
+</ul>
+<p><span class="math display"> \begin{pmatrix} 3 &amp; 3 &amp; 1 \\  &amp; 2 &amp; 0 \\ * &amp;  &amp; 2 \end{pmatrix} </span></p>
+<ul>
+<li>Symmetric matrices: <span class="math inline">A=A^\top</span> (the transpose <span class="math inline">A^\top</span> of the matrice <span class="math inline">A</span> is defined as <span class="math inline">a_{ij} = a_{ji}^\top</span>).</li>
+</ul>
+<p>Each of these structures allows for calculation optimization, hence our challenges is often to express the problem at hand in these forms.</p>
+<!-- ## Least Square -->
+<!-- Small trick: Neanderthal API and Machine Learning/Statistic notations do not -->
+<!-- coincide. In the latter, the design matrix and regression parameters are -->
+<!-- denoted with $X$ and $\beta$. In contrast Neanderthal uses $A$ and $x$. -->
+<h1 id="eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</h1>
+<p>Let <span class="math inline">T: V \to W</span> be a linear map. In order to save computation, can we ask if there exists strict subspaces of <span class="math inline">V</span> where <span class="math inline">T</span> would be invariant, that is <span class="math inline">T(v) = \lambda v</span>, for some <span class="math inline">\lambda \neq 0</span> and <span class="math inline">v \neq \vec 0</span>. If such <span class="math inline">\lambda</span> exists, we call it a eigenvalue, and the associated <span class="math inline">v</span> a eigenvectors. Note, we usually take the convention that <span class="math inline">\| v \| = 1</span>.</p>
+<p>The eigenvectors are important as they describe an invariant space, such as if <span class="math inline">v_1, v_2</span> are eigenvectors with respective eigenvalues <span class="math inline">\lambda_1, \lambda_2</span>, then if <span class="math inline">v \in \textrm{span}(v1, v2)</span>, then</p>
+<p><span class="math display"> \begin{aligned}
+  T(v) &amp; = T(\alpha_1 v_1 + \alpha_2 v2) = \alpha_1 T(v_1) + \alpha_2 T(v_2) \\
+       &amp; = \alpha_1 \lambda_1 v_1 + \alpha_2 \lambda_2 v_2 \in \textrm{span}(v_1, v_2)
+ \end{aligned}
+</span></p>
+<h1 id="neanderthal-api">Neanderthal API</h1>
+<p>All the previous concepts can be applied to any linear algebra library, we are now going to dig into the main concept of Neanderthal’s API. Basically it follows <a href="https://en.wikipedia.org/wiki/LAPACK">LAPACK</a> naming convention.</p>
+<h2 id="construction-of-matrices-vector">Construction of Matrices Vector</h2>
+<p>There are three dimensions for understanding the API:</p>
+<ul>
+<li>Numbers type: (<code>d</code>ouble, <code>f</code>loat (single precision), <code>i</code>nteger)</li>
+<li>Matrices structure: <code>v</code> (vector), <code>ge</code> (general/dense matrices), <code>sy</code> (symmetric), <code>tr</code> (triangular).</li>
+<li>Runtime (Native <code>uncomplicate.neanderthal.native</code>, CUDA <code>uncomplicate.neanderthal.cuda</code>, OpenCL <code>uncomplicate.neanderthal.opencl</code>).</li>
+</ul>
+<p>Hence to create a double general/dense matrix using native (intel mkl), we would need to call <code>uncomplicate.neanderthal.native/dge</code>, similarly for a double vector <code>uncomplicate.neanderthal.native/dv</code>.</p>
+<h2 id="functions-on-matrices">Functions on Matrices</h2>
+<ul>
+<li>Basic operations (altering variables, and many basic linear algebra operations) are exposed in <code>uncomplicate.neanderthal.core</code>.</li>
+<li>Advanced math operations on matrices and vector are exposed in <code>uncomplicate.neanderthal.vect-math</code>.</li>
+<li>Linear Algebra Algorithms (<code>uncomplicate.neanderthal.linalg</code>): finding eigenvalue, solving, least squares, matrices decomposition.</li>
+<li>Pure vs Destructive API: functions finishing with a bang <code>!</code> will mutate their argument and hence save time and possibly speed up the computation.</li>
+</ul>
+<h1 id="main-takeaways">Main Takeaways</h1>
+<ul>
+<li><p>Linear algebra is the study of linear relationships (addition and scaling) in abitrary finite dimensions.</p></li>
+<li><p>Adding and substracting matrices and vector are <span class="math inline">O(n)</span> operations.</p></li>
+<li><p>Multiplying a vector with a matrix is a <span class="math inline">O(n^2)</span>.</p></li>
+<li><p>Multiplying matrices (composing linear maps) is <span class="math inline">O(n^3)</span>.</p></li>
+<li><p>Vector spaces are mainly generalization of our intuition of geometry in 2D and 3D, where we only consider addition and scaling.</p></li>
+<li><p>Vector spaces are spanned by a basis, a list of linearly independent vectors.</p></li>
+<li><p>Linear maps are transformation that preserves the additive and homogeneity of between the domain and image space.</p></li>
+<li><p>Linear maps can be described by the coefficient of the image of the basis of the input space.</p></li>
+<li><p>There exist a one-to-one relationship between space of linear maps and the space matrices. Hence matrices represent linear transformation.</p></li>
+<li><p>For a given linear map, there might exist a basis which is more appropriate to perform the transformation.</p></li>
+<li><p>There are special matrices which could accelerate your computation.</p></li>
+<li><p>Eigenvectors of a linear map describe invariant spaces of the mapping.</p></li>
+<li><p>To get the best performance of Neandterhal, you should keep the data structure in Neandterhal’s vectors/matrices. Avoid converting data between clojure and Neandterhal memory layout.</p></li>
+</ul>
+</body>
+</html>

@@ -2,6 +2,12 @@
  {:requires ([babashka.process :refer (sh)]
              [clojure.string :as str])
 
+  open-doc
+  (shell "chromium docs/presentation.html")
+
+  pandoc
+  (shell "pandoc docs/presentation.md --katex -s -o docs/presentation.html")
+
   docker-build
   (shell "docker build -t neanderthal-image .")
 
