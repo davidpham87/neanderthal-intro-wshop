@@ -22,30 +22,64 @@
             :height 600
             :legend {:orientation :h}}})
 
+
+;; Create a vector
 (def x (dv 1 2 3))
+(def xs [(dv [1 2 3]) (dv 1 2 3) (dv 3)])
+
+(cc
+ "[
+#RealBlockVector[double, n:3, offset: 0, stride:1]
+  [   1.00    2.00    3.00 ]
+#RealBlockVector[double, n:3, offset: 0, stride:1]
+  [   1.00    2.00    3.00 ]
+#RealBlockVector[double, n:3, offset: 0, stride:1]
+  [   0.00    0.00    0.00 ]
+]")
+
+;; Create a random vector
 (defn rand-vec [n]
   (let [x (unr/rand-uniform! (dv n))]
     (unc/scal (/ 1 (unc/nrm2 x)) x)))
 
+;; Create a random 3x2 matrix
 (def z (unr/rand-uniform! (dge 3 2)))
 
+;; Column Major
+(def z-2 [(dge 3 2 [1 2 3 4 5 6])
+          (dge 3 2 [[1 2 3] [4 5 6]])])
+
+;; Slicing data
+(cc
+ (let [z (dge 3 2 [1 2 3 4 5 6])]
+   {:z z
+    :col-0 (unc/col z 0)
+    :col-1 (unc/col z 1)
+    :cols (vec (unc/cols z))
+    :row-0 (unc/row z 0)
+    :row-1 (unc/row z 1)
+    :rows (vec (unc/rows z))}))
+
+
+;; Defines a rotation matrix in 2D
 (defn rotate [d]
   (dge 2 2 [(cos d) (sin d) (- (sin d)) (cos d)]))
 
+;; Defines a homothety matrix in 2D
 (defn scale [alpha]
   (scal alpha (dge 2 2 [1 0 0 1])))
 
-(def T (dge 2 2 [1 2 0 2]))
-(def U (dge 2 2 [1 0 1 1]))
+;; ## Some function to manipulate the vectors
 
+;; $x + x$
+(cc (axpy x x))
+;; Same thing as above
+(cc (axpy 1 x 1 x))
+;; $-x$
+(cc (scal -1 x))
 
-(comment
-  (scale 100)
-  (axpy x x)
-  (axpy 1 x 1 x)
-  (scal -1 x))
+;; ## Addition and scaling of vectors in $V=\mathbb{R}^2$
 
-;; # Addition and scaling of vectors in $V=\mathbb{R}^2$
 (clerk/plotly
  (let [_ 1
        alpha 0.5
@@ -134,6 +168,8 @@
    (->plotly v w)))
 
 ;; ## Example of non commutativity of the linear maps
+(def T (dge 2 2 [1 2 0 2]))
+(def U (dge 2 2 [1 0 1 1]))
 
 (clerk/plotly
  (let [_ 4
@@ -144,12 +180,12 @@
     (unc/mv (mm T U) v))))
 
 ;; ## Example of eigenvalues and eigen vectors
-
 ;; The matrix $T$ is given by
 ;; $$ T = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix} $$
-;; This only flip the sign of the second element of the vector
-;; With a bit of intuition we see that $e_1 = \begin{bmatrix} 1 & 0 \end{bmatrix}$ and
-;; $e_2 = \begin{bmatrix} 0 & 1 \end{bmatrix}$ are eigenvectors with the eigenve value 1 and -1.
+;; This only flip the sign of the second element of the vector With a bit of
+;; intuition we see that $e_1 = \begin{bmatrix} 1 & 0 \end{bmatrix}$ and
+;; $e_2 = \begin{bmatrix} 0 & 1 \end{bmatrix}$ are eigenvectors with the
+;; eigenvalues $1$ and $-1$.
 
 (clerk/plotly
  (let [_ 0
@@ -160,21 +196,25 @@
        e2 (dv [0 1])]
    (->plotly v w e1 (unc/mv T e1) e2 (unc/mv T e2))))
 
+;; Here is how you can explore the eigenvalue API
+
+(cc
+ (let [_    0
+       T    (unc/mm (rotate (/ Math/PI 2)) (dge 2 2 [1 0 0 -1]))
+       T'   (unc/copy T)
+       v    (dv [1 1])
+       w    (unc/mv T v)
+       evec (dge 2 2)
+       vr   (dge 2 2)
+       vl   (dge 2 2)
+       _    (unl/ev! T' evec vr vl)]
+   {:t T
+    :t' T'
+    :e evec
+    :vr vr
+    :vl vl}))
+
 (comment
-  (let [_    0
-        T    (unc/mm (rotate (/ Math/PI 2)) (dge 2 2 [1 0 0 -1]))
-        T'   (unc/copy T)
-        v    (dv [1 1])
-        w    (unc/mv T v)
-        evec (dge 2 2)
-        vr   (dge 2 2)
-        vl   (dge 2 2)
-        _    (unl/ev! T' evec vr vl)]
-    {:t T
-     :t' T'
-     :e evec
-     :vr vr
-     :vl vl})
 
   (unc/nrm2 (dv [0.70705 0.70705]))
   (dge 2 2 [2 0 0 -3])

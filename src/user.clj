@@ -15,8 +15,7 @@
   (tap> {:h 3 :a 3})
   (init)
   (clerk/build-static-app!
-   {:paths [#_"src/linalg/bench.clj"
+   {:paths ["src/linalg/bench.clj"
             "src/linalg/intro.clj"
-            "src/linalg/neanderthal.clj"
-            ]})
+            "src/linalg/neanderthal.clj"]})
   )
