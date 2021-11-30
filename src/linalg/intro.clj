@@ -214,10 +214,9 @@
 ;; `*` scalar operation, with the following property, for all $u, v, w \in V$:
 
 ;; - Commutativity: $u+v = v+u$
-;; - Associativity: $(u + v) + w = u (v + w)$ and $(ab)v = a(bv)$.
+;; - Associativity: $(u + v) + w = u + (v + w)$ and $(ab)v = a(bv)$.
 ;; - Additive identity: there exists $0 \in V$ such that $v+0 = v$.
-;; - Additive inverse: for all $v \in V$, there exist $w \in W$ such that $v+w =
-;;   0$.
+;; - Additive inverse: for all $v \in V$, there exist $w \in W$ such that $v+w = 0$.
 ;; - Multiplicative identity ($1v=v$, for all $v \in V$),
 ;; - Distributive properties: $(\alpha+\beta)(u+v) = \alpha u + \alpha u + \beta v + \beta v$, for all $\alpha, \beta \in \mathcal{F}$, and $v, w \in V$.
 
@@ -241,8 +240,8 @@
 
 ;;   $$\langle \lambda u + v, w \rangle = \lambda \langle u, w \rangle + \langle v, w \rangle$$
 
-;; - Conjugate symmetry: $\langle u, v \rangle$ is the conjugate of $\langle v, u
-;;   \rangle$ (when $\mathbb{F} = \mathbb{R}, they are equal).
+;; - Conjugate symmetry: $\langle u, v \rangle$ is the conjugate of $\langle v, u \rangle$
+;; (when $\mathbb{F} = \mathbb{R}$, they are equal).
 
 ;; In most applications, the inner product of two vectors is the euclidean dot
 ;; product $\langle v, w \rangle = \sum_i v_i w_i$, which translate to
@@ -377,8 +376,7 @@
 ;;   column $j$ is the coefficient of the linear combination to express $w=T(v_j)$
 ;;   in the basis of $w_1, \dots, w_m$.
 ;; - The relation is bijective: for every matrix $A$, there exist a linear mapping
-;;   $T_A$ from $\mathbb{R}^n$ to $\mathbb{R}^m$, such that $T_A(v_j) = \sum_i
-;;   \alpha_{ij} w_i$.
+;;   $T_A$ from $\mathbb{R}^n$ to $\mathbb{R}^m$, such that $T_A(v_j) = \sum_i \alpha_{ij} w_i$.
 ;; - With this connection, the space of matrices is also a vector space! One
 ;;   defines the addition of matrices as element-wise addition. That is for two
 ;;   matrices $A,B$ and a coefficient $\lambda$
